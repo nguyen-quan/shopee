@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get CRUD</title>
+    <style>
+        table, th, td {
+          border:1px solid black;
+          border-collapse: collapse;
+        }
+        .create-user-container {
+            padding   : 15px;
+            text-align: center;
+        }
+
+        .create-user-container label {
+            display: block;
+        }
+
+        .create-user-container .btn-submit {
+            margin-top: 15px;
+            cursor    : pointer;
+        }
+
+
+        .update-user-container {
+            padding   : 15px;
+            text-align: center;
+        }
+
+        .update-user-container label {
+            display: block;
+        }
+
+        .btn-save {
+            margin-top: 15px;
+            cursor    : pointer;
+        }
+
+        .upload-file-container {
+            padding: 15px;
+        }
+
+        .upload-file-container label {
+            display: block;
+        }
+
+        hr {
+            border-top: 3px solid #eee !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/upload">Upload file</a>
+
+    </div>
+    <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+
+        <% for(let i=0; i < dataTable.length; i++) { %>
+            <tr>
+              <td><%= dataTable[i].id %></td>
+              <td><%= dataTable[i].name %></td>
+              <td><%= dataTable[i].image %></td>
+              <td><%= dataTable[i].price %></td>
+              <td><%= dataTable[i].description %></td>
+              <td>
+                <a href="/detail/product/<%=dataTable[i].id%>" class="btn-detail" type="button">detail</a>
+                <form action="/edit-product/<%= dataTable[i].id %>" method="GET">
+                  <button type="submit">Edit</button>
+                </form>
+                <form action="/delete-product" method="POST">
+                    <input type="text" hidden value="<%= dataTable[i].id %>" name="productId" />
+                    <button type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+        <% } %>
+    </table>
+    <div class="create-user-container">
+      <form action="/create-new-product" method="POST">
+          <div><b>Create a new product:</b></div>
+          <div>
+              <label>Name:</label>
+              <input type="text" name="name" />
+          </div>
+          <div>
+              <label>Image:</label>
+              <input type="text" name="image" />
+          </div>
+          <div>
+              <label>Price:</label>
+              <input type="number" name="price" />
+          </div>
+          <div>
+              <label>description:</label>
+              <input type="text" name="description" />
+          </div>
+          <div>
+              <button type="submit" class="btn-submit">Submit</button>
+          </div>
+
+      </form>
+
+  </div>
+</body>
+</html>
